@@ -1,0 +1,20 @@
+#IncludeRegexLine: ^[ 	]*[#%][ 	]*(include|import)[ 	]*[<"]([^">]+)([">])
+
+#IncludeRegexScan: ^.*$
+
+#IncludeRegexComplain: ^$
+
+#IncludeRegexTransform: 
+
+/home/dieguin/cpp_practice/unnamed-cpp-project/Project/main.cpp
+iostream
+-
+maze.h
+/home/dieguin/cpp_practice/unnamed-cpp-project/Project/maze.h
+
+/home/dieguin/cpp_practice/unnamed-cpp-project/Project/maze.h
+vector
+-
+random
+-
+
