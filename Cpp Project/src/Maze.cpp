@@ -2,11 +2,11 @@
 // Created by dieguin on 12/12/21.
 //
 
-#include "Headers.h"
+#include "../include/Headers.h"
 #include "Maze.h"
 
 Maze::Maze(const size_t height, const size_t width, uint16_t apples) : height_(height), width_(width), apples_(apples) {
-    grid_.assign(height, std::vector<char>(width, kWall));
+    grid_.assign(height, std::vector<char>(width, '#'));
     engine_ = std::mt19937(seed_());
     randomizer_ = std::uniform_int_distribution<>(0, 3);
     random_height_ = std::uniform_int_distribution<>(0, int(height_));

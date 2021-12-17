@@ -5,7 +5,7 @@
 #ifndef CPP_PROJECT_PLAYER_H
 #define CPP_PROJECT_PLAYER_H
 
-#include "Headers.h"
+#include "../include/Headers.h"
 
 class Player {
 public:

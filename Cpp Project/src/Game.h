@@ -5,7 +5,7 @@
 #ifndef CPP_PROJECT_GAME_H
 #define CPP_PROJECT_GAME_H
 
-#include "Headers.h"
+#include "../include/Headers.h"
 #include "Maze.h"
 #include "Player.h"
 

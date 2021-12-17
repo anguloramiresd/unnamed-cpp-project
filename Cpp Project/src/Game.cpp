@@ -2,7 +2,7 @@
 // Created by dieguin on 12/12/21.
 //
 
-#include "Headers.h"
+#include "../include/Headers.h"
 #include "Game.h"
 
 Game::Game(const size_t height, const size_t width) {
@@ -14,25 +14,25 @@ Game::Game(const size_t height, const size_t width) {
     window_ = new sf::RenderWindow(sf::VideoMode(width * 16, height * 16 + 32), "Game");
     window_->setFramerateLimit(60);
 
-    if (!cobble_.loadFromFile("../cobble.png")) {
+    if (!cobble_.loadFromFile("../images/cobble.png")) {
         std::cout << "Unable to load cobble.png\n";
     }
     wall_.setTexture(cobble_);
     wall_.setTextureRect(sf::IntRect(0, 0, 16, 16));
 
-    if (!dirt_.loadFromFile("../dirt.png")) {
+    if (!dirt_.loadFromFile("../images/dirt.png")) {
         std::cout << "Unable to load dirt.png";
     }
     road_.setTexture(dirt_);
     road_.setTextureRect(sf::IntRect(0, 0, 16, 16));
 
-    if (!animal_.loadFromFile("../sheep.png")) {
+    if (!animal_.loadFromFile("../images/sheep.png")) {
         std::cout << "Unable to load sheep.png";
     }
     sheep_.setTexture(animal_);
     sheep_.setTextureRect(sf::IntRect(0, 0, 16, 16));
 
-    if (!fruit_.loadFromFile("../apple.png")) {
+    if (!fruit_.loadFromFile("../images/apple.png")) {
         std::cout << "Unable to load apple.png";
     }
     apple_.setTexture(fruit_);
