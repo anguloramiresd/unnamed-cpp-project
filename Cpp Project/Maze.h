@@ -8,16 +8,14 @@
 #include <vector>
 #include <random>
 
-#define Wall '#'
-
-const int dx[] = {1, -1, 0, 0};
-const int dy[] = {0, 0, -1, 1};
+const int kDx[] = {1, -1, 0, 0};
+const int kDy[] = {0, 0, -1, 1};
 
 class Maze {
 public:
-    constexpr static const char empty = ' ';
-    constexpr static const char wall = '#';
-    constexpr static const char apple = '-';
+    constexpr static const char kEmpty = ' ';
+    constexpr static const char kWall = '#';
+    constexpr static const char kApple = '-';
     uint16_t apples_;
 
 private:

@@ -5,40 +5,40 @@
 #include "Headers.h"
 #include "Game.h"
 
-Game::Game(const size_t height, const size_t width){
+Game::Game(const size_t height, const size_t width) {
     height_ = height;
     width_ = width;
     labyrinth_ = new Maze(height, width, 15);
     labyrinth_->Generate();
 
-    window_ = new sf::RenderWindow(sf::VideoMode(width*16, height*16+32), "Game");
+    window_ = new sf::RenderWindow(sf::VideoMode(width * 16, height * 16 + 32), "Game");
     window_->setFramerateLimit(60);
 
-    if(!cobble_.loadFromFile("../cobble.png")){
-        std::cout<<"Unable to load cobble.png\n";
+    if (!cobble_.loadFromFile("../cobble.png")) {
+        std::cout << "Unable to load cobble.png\n";
     }
     wall_.setTexture(cobble_);
-    wall_.setTextureRect(sf::IntRect(0,0,16,16));
+    wall_.setTextureRect(sf::IntRect(0, 0, 16, 16));
 
-    if(!dirt_.loadFromFile("../dirt.png")){
-        std::cout<<"Unable to load dirt.png";
+    if (!dirt_.loadFromFile("../dirt.png")) {
+        std::cout << "Unable to load dirt.png";
     }
     road_.setTexture(dirt_);
-    road_.setTextureRect(sf::IntRect(0,0,16,16));
+    road_.setTextureRect(sf::IntRect(0, 0, 16, 16));
 
-    if(!animal_.loadFromFile("../sheep.png")){
-        std::cout<<"Unable to load sheep.png";
+    if (!animal_.loadFromFile("../sheep.png")) {
+        std::cout << "Unable to load sheep.png";
     }
     sheep_.setTexture(animal_);
-    sheep_.setTextureRect(sf::IntRect(0,0,16,16));
+    sheep_.setTextureRect(sf::IntRect(0, 0, 16, 16));
 
-    if(!fruit_.loadFromFile("../apple.png")){
-        std::cout<<"Unable to load apple.png";
+    if (!fruit_.loadFromFile("../apple.png")) {
+        std::cout << "Unable to load apple.png";
     }
     apple_.setTexture(fruit_);
-    apple_.setTextureRect(sf::IntRect(0,0,16,16));
+    apple_.setTextureRect(sf::IntRect(0, 0, 16, 16));
 
-    player_ = new Player(1,1);
+    player_ = new Player(1, 1);
 }
 
 Game::~Game() {
@@ -84,15 +84,15 @@ void Game::Play() {
 
 void Game::DrawLabyrinth() {
     for (size_t i = 0; i < height_; ++i) {
-        for(size_t j = 0; j < width_; ++j){
-            if(labyrinth_->GetCell(i,j) == Maze::wall){
-                wall_.setPosition(float(j)*16, float(i)*16);
+        for (size_t j = 0; j < width_; ++j) {
+            if (labyrinth_->GetCell(i, j) == Maze::kWall) {
+                wall_.setPosition(float(j) * 16, float(i) * 16);
                 window_->draw(wall_);
-            } else if(labyrinth_->GetCell(i,j) == Maze::apple){
-                apple_.setPosition(float(j)*16, float(i)*16);
+            } else if (labyrinth_->GetCell(i, j) == Maze::kApple) {
+                apple_.setPosition(float(j) * 16, float(i) * 16);
                 window_->draw(apple_);
             } else {
-                road_.setPosition(float(j)*16, float(i)*16);
+                road_.setPosition(float(j) * 16, float(i) * 16);
                 window_->draw(road_);
             }
         }
@@ -100,27 +100,31 @@ void Game::DrawLabyrinth() {
 }
 
 void Game::DrawPlayer() {
-    sheep_.setPosition(float(player_->y)*16, float(player_->x)*16);
+    sheep_.setPosition(float(player_->y) * 16, float(player_->x) * 16);
     window_->draw(sheep_);
 }
 
 void Game::CaptureKey() {
-    switch(event_.key.code){
-        case(sf::Keyboard::A):
-            if(labyrinth_->GetCell(player_->x, player_->y-1) != Maze::wall)
+    switch (event_.key.code) {
+        case (sf::Keyboard::A):
+            if (labyrinth_->GetCell(player_->x, player_->y - 1) != Maze::kWall) {
                 player_->MovePlayer(Player::L);
+            }
             break;
-        case(sf::Keyboard::S):
-            if(labyrinth_->GetCell(player_->x+1, player_->y) != Maze::wall)
+        case (sf::Keyboard::S):
+            if (labyrinth_->GetCell(player_->x + 1, player_->y) != Maze::kWall) {
                 player_->MovePlayer(Player::D);
+            }
             break;
-        case(sf::Keyboard::W):
-            if(labyrinth_->GetCell(player_->x-1, player_->y) != Maze::wall)
+        case (sf::Keyboard::W):
+            if (labyrinth_->GetCell(player_->x - 1, player_->y) != Maze::kWall) {
                 player_->MovePlayer(Player::U);
+            }
             break;
-        case(sf::Keyboard::D):
-            if(labyrinth_->GetCell(player_->x, player_->y+1) != Maze::wall)
+        case (sf::Keyboard::D):
+            if (labyrinth_->GetCell(player_->x, player_->y + 1) != Maze::kWall) {
                 player_->MovePlayer(Player::R);
+            }
             break;
         default:
             break;
@@ -128,7 +132,7 @@ void Game::CaptureKey() {
 }
 
 void Game::WasThatAnApple() {
-    if(labyrinth_->GetCell(player_->x, player_->y) == Maze::apple){
+    if (labyrinth_->GetCell(player_->x, player_->y) == Maze::kApple) {
         labyrinth_->EatApple(player_->x, player_->y);
     }
 }
