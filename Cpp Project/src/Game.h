@@ -29,15 +29,29 @@ private:
 
 public:
     Game(size_t height, size_t width);
+
     ~Game();
+
     void Play();
+
 private:
     void Update();
+
     void Render();
+
     void DrawLabyrinth();
+
     void DrawPlayer();
+
     void CaptureKey();
+
     void WasThatAnApple();
+
+    void Load(sf::Texture &texture, sf::Sprite &sprite, std::string filename);
+
+    void Draw(sf::Sprite &sprite, const int &x, const int &y);
+
+    void Draw(const int &x, const int &y);
 };
 
 #endif //CPP_PROJECT_GAME_H

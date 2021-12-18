@@ -4,25 +4,25 @@
 
 #include "Player.h"
 
-Player::Player(const uint16_t pos_x, const uint16_t pos_y) :x(pos_x), y(pos_y){
+Player::Player(const uint16_t pos_x, const uint16_t pos_y) : x(pos_x), y(pos_y) {
 
 }
 
 void Player::MovePlayer(uint16_t direction) {
     switch (direction) {
-        case R:
+        case kR:
             y++;
             break;
-        case D:
+        case kD:
             x++;
             break;
-        case L:
+        case kL:
             y--;
             break;
-        case U:
+        case kU:
             x--;
             break;
         default:
-            std::cout<<"Something weird happened\n";
+            std::cout << "Something weird happened\n";
     }
 }

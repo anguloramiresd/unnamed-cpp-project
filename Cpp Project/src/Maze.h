@@ -29,14 +29,20 @@ private:
 
 public:
     Maze(size_t height, size_t width, uint16_t apples);
+
     void Print() const;
+
     void Generate();
+
     char GetCell(size_t pos_x, size_t pos_y);
+
     void EatApple(size_t pos_x, size_t pos_y);
 
 private:
     bool Valid(int x, int y) const;
+
     void CreateLabyrinth(int x, int y);
+
     void AddApples();
 };
 

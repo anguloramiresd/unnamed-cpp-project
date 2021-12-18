@@ -17,7 +17,7 @@ void Maze::Print() const {
     for (size_t i = 0; i < height_; ++i) {
         for (size_t j = 0; j < width_; ++j) {
             std::cout << grid_[i][j];
-}
+        }
         std::cout << '\n';
     }
 }
@@ -27,7 +27,7 @@ void Maze::Generate() {
     AddApples();
 }
 
-char Maze::GetCell(const size_t pos_x, const size_t pos_y){
+char Maze::GetCell(const size_t pos_x, const size_t pos_y) {
     return grid_[pos_x][pos_y];
 }
 
@@ -42,8 +42,8 @@ bool Maze::Valid(const int x, const int y) const {
         if (new_x >= 1 && new_x < height_ - 1 && new_y >= 1 && new_y < width_ - 1) {
             if (grid_[new_x][new_y] == ' ') {
                 c++;
-}
-}
+            }
+        }
     }
     return (x >= 1 && x < height_ - 1 && y >= 1 && y < width_ - 1 && grid_[x][y] == kWall && c == 1);
 }
@@ -56,14 +56,14 @@ void Maze::CreateLabyrinth(const int x, const int y) {
 
     for (size_t i = 0; i < 10; ++i) {
         std::swap(order[randomizer_(engine_)], order[randomizer_(engine_)]);
-}
+    }
 
     for (size_t i: order) {
         new_x = x + kDx[i];
         new_y = y + kDy[i];
         if (Valid(new_x, new_y)) {
             CreateLabyrinth(new_x, new_y);
-}
+        }
     }
 }
 
@@ -71,10 +71,10 @@ void Maze::AddApples() {
     int x;
     int y;
     int c = 0;
-    while(c < apples_){
+    while (c < apples_) {
         x = random_height_(engine_);
         y = random_width_(engine_);
-        if(grid_[x][y] != kWall && grid_[x][y] != kApple) {
+        if (grid_[x][y] != kWall && grid_[x][y] != kApple) {
             grid_[x][y] = kApple;
             c++;
         }
