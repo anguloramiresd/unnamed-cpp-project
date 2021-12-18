@@ -5,7 +5,7 @@
 #ifndef CPP_PROJECT_GAME_H
 #define CPP_PROJECT_GAME_H
 
-#include "Headers.h"
+#include "../include/Headers.h"
 #include "Maze.h"
 #include "Player.h"
 
@@ -16,6 +16,8 @@ private:
     Maze *labyrinth_;
     sf::RenderWindow *window_;
     sf::Clock clock_;
+    sf::Font font_;
+    sf::Text game_info_;
     sf::Texture cobble_;
     sf::Texture dirt_;
     sf::Texture animal_;
@@ -26,18 +28,42 @@ private:
     sf::Sprite apple_;
     sf::Event event_{};
     Player *player_;
+    bool win_;
+    int win_time_;
 
 public:
     Game(size_t height, size_t width);
+
     ~Game();
+
     void Play();
+
 private:
     void Update();
+
     void Render();
+
     void DrawLabyrinth();
+
     void DrawPlayer();
+
     void CaptureKey();
+
     void WasThatAnApple();
+
+    void Load(sf::Texture &texture, sf::Sprite &sprite, std::string filename);
+
+    void Draw(sf::Sprite &sprite, const int &x, const int &y);
+
+    void Draw(const int &x, const int &y);
+
+    void InitGameInfo();
+
+    void UpdateGameInfo();
+
+    void DidIWin();
+
+    void ShowWinScreen();
 };
 
 #endif //CPP_PROJECT_GAME_H

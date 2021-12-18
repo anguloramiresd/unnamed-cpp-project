@@ -6,6 +6,7 @@
 #define CPP_PROJECT_HEADERS_H
 
 #include <iostream>
+#include <string>
 #include <SFML/Graphics.hpp>
 
 #endif //CPP_PROJECT_HEADERS_H
