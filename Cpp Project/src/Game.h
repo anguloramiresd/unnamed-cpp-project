@@ -16,6 +16,8 @@ private:
     Maze *labyrinth_;
     sf::RenderWindow *window_;
     sf::Clock clock_;
+    sf::Font font_;
+    sf::Text game_info_;
     sf::Texture cobble_;
     sf::Texture dirt_;
     sf::Texture animal_;
@@ -26,6 +28,8 @@ private:
     sf::Sprite apple_;
     sf::Event event_{};
     Player *player_;
+    bool win_;
+    int win_time_;
 
 public:
     Game(size_t height, size_t width);
@@ -52,6 +56,14 @@ private:
     void Draw(sf::Sprite &sprite, const int &x, const int &y);
 
     void Draw(const int &x, const int &y);
+
+    void InitGameInfo();
+
+    void UpdateGameInfo();
+
+    void DidIWin();
+
+    void ShowWinScreen();
 };
 
 #endif //CPP_PROJECT_GAME_H

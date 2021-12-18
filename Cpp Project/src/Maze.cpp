@@ -83,4 +83,5 @@ void Maze::AddApples() {
 
 void Maze::EatApple(size_t pos_x, size_t pos_y) {
     grid_[pos_x][pos_y] = kEmpty;
+    apples_--;
 }

@@ -19,24 +19,21 @@ void Game::Draw(sf::Sprite &sprite, const int &x, const int &y) {
 }
 
 Game::Game(const size_t height, const size_t width) {
-    //Generating random labyrinth
     height_ = height;
     width_ = width;
     labyrinth_ = new Maze(height, width, 15);
     labyrinth_->Generate();
 
-    //setup Window
-    window_ = new sf::RenderWindow(sf::VideoMode(width * 16, height * 16 + 32), "Game");
+    window_ = new sf::RenderWindow(sf::VideoMode(width * 16, height * 16 + 40), "Labyrinthical");
     window_->setFramerateLimit(60);
-    window_->setTitle("Labyrinthical");
 
-    //Loading images
+    InitGameInfo();
+
     Load(cobble_, wall_, "../images/cobble.png");
     Load(dirt_, road_, "../images/dirt.png");
     Load(animal_, sheep_, "../images/sheep.png");
     Load(fruit_, apple_, "../images/apple.png");
 
-    //Creating player
     player_ = new Player(1, 1);
 }
 
@@ -54,27 +51,37 @@ void Game::Update() {
                 break;
 
             case sf::Event::KeyPressed:
-                CaptureKey();
-                WasThatAnApple();
+                if (!win_) {
+                    CaptureKey();
+                    WasThatAnApple();
+                    DidIWin();
+                }
                 break;
 
             default:
                 break;
         }
     }
+    UpdateGameInfo();
 }
 
 void Game::Render() {
     window_->clear(sf::Color::White);
     DrawLabyrinth();
     DrawPlayer();
+    window_->draw(game_info_);
     window_->display();
 }
 
 void Game::Play() {
+    clock_.restart();
     while (window_->isOpen()) {
         Update();
-        Render();
+        if (win_) {
+            ShowWinScreen();
+        } else {
+            Render();
+        }
     }
 }
 
@@ -132,5 +139,34 @@ void Game::WasThatAnApple() {
     if (labyrinth_->GetCell(player_->x, player_->y) == Maze::kApple) {
         labyrinth_->EatApple(player_->x, player_->y);
     }
+}
+
+void Game::InitGameInfo() {
+    font_.loadFromFile("../fonts/YagiUhfNo2.ttf");
+    game_info_.setFont(font_);
+    game_info_.setCharacterSize(32);
+    game_info_.setPosition(0, height_ * 16);
+    game_info_.setFillColor(sf::Color::Black);
+    UpdateGameInfo();
+}
+
+void Game::UpdateGameInfo() {
+    int time = clock_.getElapsedTime().asSeconds();
+    game_info_.setString("Apples left: " + std::to_string(labyrinth_->apples_) + " Time: " +
+                         std::to_string(time) + " seconds");
+}
+
+void Game::DidIWin() {
+    win_ = labyrinth_->apples_ == 0;
+    win_time_ = clock_.getElapsedTime().asSeconds();
+}
+
+void Game::ShowWinScreen() {
+    window_->clear(sf::Color::White);
+    sf::Text win_text("You won in only " + std::to_string(win_time_) + " seconds", font_, 50);
+    win_text.setPosition(width_ / 2, height_ / 2);
+    win_text.setFillColor(sf::Color::Black);
+    window_->draw(win_text);
+    window_->display();
 }
 
