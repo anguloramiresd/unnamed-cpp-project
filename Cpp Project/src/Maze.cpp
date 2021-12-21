@@ -3,7 +3,7 @@
 //
 
 #include "../include/Headers.h"
-#include "Maze.h"
+#include "../include/Maze.h"
 
 Maze::Maze(const size_t height, const size_t width, uint16_t apples) : height_(height), width_(width), apples_(apples) {
     grid_.assign(height, std::vector<char>(width, '#'));

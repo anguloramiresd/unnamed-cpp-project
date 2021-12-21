@@ -2,7 +2,7 @@
 // Created by dieguin on 12/12/21.
 //
 
-#include "Player.h"
+#include "../include/Player.h"
 
 Player::Player(const uint16_t pos_x, const uint16_t pos_y) : x(pos_x), y(pos_y) {
 

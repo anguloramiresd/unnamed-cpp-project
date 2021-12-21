@@ -5,12 +5,15 @@
 #ifndef CPP_PROJECT_GAME_H
 #define CPP_PROJECT_GAME_H
 
-#include "../include/Headers.h"
+#include "Headers.h"
 #include "Maze.h"
 #include "Player.h"
 
 class Game {
 private:
+    constexpr static const int kWidthTexture = 16;
+    constexpr static const int kHeightTexture = 16;
+    constexpr static const int kHeightText = 32;
     uint16_t height_;
     uint16_t width_;
     Maze *labyrinth_;
@@ -32,7 +35,7 @@ private:
     int win_time_;
 
 public:
-    Game(size_t height, size_t width);
+    Game(size_t height, size_t width, int apples);
 
     ~Game();
 

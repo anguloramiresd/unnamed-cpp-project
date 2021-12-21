@@ -3,28 +3,29 @@
 //
 
 #include "../include/Headers.h"
-#include "Game.h"
+#include "../include/Game.h"
 
 void Game::Load(sf::Texture &texture, sf::Sprite &sprite, const std::string filename) {
     if (!texture.loadFromFile(filename)) {
         std::cout << "Unable to load\n";
     }
     sprite.setTexture(texture);
-    sprite.setTextureRect(sf::IntRect(0, 0, 16, 16));
+    sprite.setTextureRect(sf::IntRect(0, 0, kWidthTexture, kHeightTexture));
 }
 
 void Game::Draw(sf::Sprite &sprite, const int &x, const int &y) {
-    sprite.setPosition(float(x) * 16, float(y) * 16);
+    sprite.setPosition(float(x) * kWidthTexture, float(y) * kHeightTexture);
     window_->draw(sprite);
 }
 
-Game::Game(const size_t height, const size_t width) {
+Game::Game(const size_t height, const size_t width, const int apples) {
     height_ = height;
     width_ = width;
-    labyrinth_ = new Maze(height, width, 15);
+    labyrinth_ = new Maze(height, width, apples);
     labyrinth_->Generate();
 
-    window_ = new sf::RenderWindow(sf::VideoMode(width * 16, height * 16 + 40), "Labyrinthical");
+    window_ = new sf::RenderWindow(sf::VideoMode(width * kWidthTexture, height * kHeightTexture + 2 * kHeightText),
+                                   "Labyrinthical");
     window_->setFramerateLimit(60);
 
     InitGameInfo();
@@ -104,7 +105,7 @@ void Game::DrawLabyrinth() {
 }
 
 void Game::DrawPlayer() {
-    sheep_.setPosition(float(player_->y) * 16, float(player_->x) * 16);
+    sheep_.setPosition(float(player_->y) * kWidthTexture, float(player_->x) * kHeightTexture);
     window_->draw(sheep_);
 }
 
@@ -144,8 +145,8 @@ void Game::WasThatAnApple() {
 void Game::InitGameInfo() {
     font_.loadFromFile("../fonts/YagiUhfNo2.ttf");
     game_info_.setFont(font_);
-    game_info_.setCharacterSize(32);
-    game_info_.setPosition(0, height_ * 16);
+    game_info_.setCharacterSize(kHeightText);
+    game_info_.setPosition(0, height_ * kHeightTexture);
     game_info_.setFillColor(sf::Color::Black);
     UpdateGameInfo();
 }
@@ -163,7 +164,7 @@ void Game::DidIWin() {
 
 void Game::ShowWinScreen() {
     window_->clear(sf::Color::White);
-    sf::Text win_text("You won in only " + std::to_string(win_time_) + " seconds", font_, 50);
+    sf::Text win_text("You won in only " + std::to_string(win_time_) + " seconds", font_, kHeightText);
     win_text.setPosition(width_ / 2, height_ / 2);
     win_text.setFillColor(sf::Color::Black);
     window_->draw(win_text);
